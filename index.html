@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Latin Roots</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"  media="screen,projection"/>
+		<link type="text/css" rel="stylesheet" href="css/latin.min.css">
+		<link type="text/css" rel="stylesheet" href="css/celebrations.min.css">
+	</head>
+	<body>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" class="brand-logo">LaŦiŋ Řooŧs</a>
+				<ul id="nav-mobile" class="right">
+					<li><a class="dropdown-trigger" href="javascript:void(false);" data-target="dropdownOptions"><i class="material-icons">menu</i></a></li>
+				</ul>
+			</div>
+		</nav>
+		<div id="exclamation">Nice!</div>
+		<div id="lets-celebrate" class="zigzag">Lets Celebrate!</div>
+		<div id="questions">
+			<div class="container">
+				<div class="row">
+					<div class="card blue-grey">
+						<div class="card-content white-text scale-transition">
+							<span class="card-title" id="latinRoot">Loading</span>
+							<p id="answerContainer"></p>
+						</div>
+						<div class="card-action">
+							<a href="javascript:void(0);" id="nextRoot" class="btn teal lighten-2">Next</a>
+							<a href="javascript:void(0);" id="checkAnswer" class="btn btn-flat blue lighten-1">Check</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<ul class="collapsible" id="hintCollapsible">
+						<li class="grey">
+							<div class="collapsible-header grey"><h5 class="grey-text text-darken-2"><i class="material-icons">help</i>Hint</h5></div>
+							<div class="collapsible-body grey lighten-3 grey-text text-darken-2">
+								<p><strong>Origin: </strong><span id="rootOrigin"></span></p>
+								<p><strong>Examples: </strong><span id="rootHint"></span>
+								<p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<form id="settings">
+			<ul id='dropdownOptions' class='dropdown-content' style="width: 30em">
+				<li><span>Settings</span></a>
+				<li class="divider" tabindex="-1"></li>
+				<li><a href="javascript:void(0)"><div class="switch"><label><span>Off</span><input type="checkbox" name="clickSubmit"><span class="lever"></span>On</label></div>Auto submit</a></li>
+				<li><a href="javascript:void(0)"><div class="switch"><label><span>Off</span><input type="checkbox" name="showHint"><span class="lever"></span>On</label></div>Show hints</a></li>
+				<li><a href="javascript:void(0)"><div class="switch"><label><span>Alpabetical</span><input type="checkbox" name="randomOrder"><span class="lever"></span>Random</label></div>Order</a></li>
+				<li><a href="javascript:void(0)"><div class="switch"><label><span>Common</span><input type="checkbox" name="allRoots"><span class="lever"></span>All</label></div>Roots</a></li>
+				<li><span><p class="range-field"><input type="range" name="answers" min="3" max="10" style="margin: 0"/></p>Choices</span></li>
+				<li class="divider" tabindex="-1"></li>
+				<li><a href="javascript:latin.showReports()">Reports</li>
+			</ul>
+		</form>
+		<div id="reports">
+			<div class="fixed-action-btn"><a class="btn-floating btn-large waves-effect waves-light red back-button" href="javascript:latin.hideReports()"><i class="material-icons back-button">arrow_back</i></a></div>
+			<h2>Reports</h2>
+			<div class="row">
+				<div class="col s12 m6 l4">
+					<div class="card ">
+						<div class="">
+							<span class="card-title">Totals</span>
+							<ul class="collection">
+								<li class="collection-item"><span class="title teal-text">Questions</span><span
+										id="totals-questions">0</span></li>
+								<li class="collection-item"><span class="title teal-text">Answers</span><span
+										id="totals-answers">0</span>
+								</li>
+								<li class="collection-item"><span class="title teal-text">Time</span><span
+										id="totals-time">0</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m6 l4">
+					<div class="card ">
+						<div class="">
+							<span class="card-title">Most correct<span class="subtitle">Avg. Guesses</span></span>
+							<ul class="collection" id="most-correct">
+								<li class="collection-item">Loading...</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m6 l4">
+					<div class="card ">
+						<div class="">
+							<span class="card-title">Least correct<span class="subtitle">Avg. Guesses</span></span>
+							<ul class="collection" id="least-correct">
+								<li class="collection-item">Loading...</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m6 l4">
+					<div class="card ">
+						<div class="">
+							<span class="card-title">Most seen</span>
+							<ul class="collection" id="most-seen">
+								<li class="collection-item">Loading...</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col s12 m6 l4">
+					<div class="card ">
+						<div class="">
+							<span class="card-title">Least seen</span>
+							<ul class="collection" id="least-seen">
+								<li class="collection-item">Loading...</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="charts"></div>
+		</div>
+	  
+		<div id="celebrations">
+			<canvas id="celebrationCanvas"></canvas>
+			<div id="stars-celebration">
+				<div class="night">
+				<div class="shooting_star"></div>
+				<div class="shooting_star"></div>
+				<div class="shooting_star"></div>
+				<div class="shooting_star"></div>
+				<div class="shooting_star"></div>
+			  </div>
+			</div>
+			<div id="aquarium-celebration">
+				<div class="aquarium">
+					<div class="aquarium__table"></div>
+					<div class="aquarium__aquarium">
+					  <div class="aquarium__water"></div>
+					  <div class="aquarium__bubble"></div>
+					  <div class="aquarium__bubble"></div>
+					  <div class="aquarium__bubble"></div>
+					  <div class="aquarium__bubble"></div>
+					  <div class="aquarium__bubble"></div>
+					  <div class="aquarium__bubble"></div>
+					  <div class="aquarium__bubble"></div>
+					  <div class="aquarium__bubble"></div>
+					</div>
+					<div class="aquarium__drops">
+					  <div class="aquarium__drop"></div>
+					  <div class="aquarium__water-column"></div>
+					  <div class="aquarium__splash"></div>
+					  <div class="aquarium__splash"></div>
+					</div>
+					<div class="aquarium__sponge-box">
+					  <div class="aquarium__body">
+						<div class="aquarium__body-hole"></div>
+					  </div>
+					  <div class="aquarium__face">
+						<div class="aquarium__mouth"></div>
+					  </div>
+					</div>
+				  </div>
+				
+			</div>
+
+			<div id="bear-celebration">
+				<div class="container">
+					<div class="oval-thought">
+						Looking Good!
+					</div>
+					<div class="bear">
+					  <div class="bear__ears">
+						<div class="bear__ears__left ear"></div>
+						<div class="bear__ears__right ear"></div>
+					  </div>
+					  <div class="bear__body">
+						<div class="bear__eyes">
+						  <div class="bear__eyes--left eye"></div>
+						  <div class="bear__eyes--right eye"></div>
+						</div>
+						<div class="bear__nose">
+						  <div class="bear__nose--inner"></div>
+						</div>
+					  </div>
+					</div>
+					<div class="shadow"></div>
+				  </div>
+			</div>
+
+
+		</div>
+		<div class="footer">
+			<strong class="blue-grey-text lighten-1">Contact</strong><br>
+			<a href="mailto:jerremy.strassner@gmail.com">Jerremy Strassner</a>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="js/celebrations.min.js"></script>
+		<script src="js/app.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta/chart.min.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-30S92M0SZD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-30S92M0SZD');
+</script>
+		
+	</body>
+</html>

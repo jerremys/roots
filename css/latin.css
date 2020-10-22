@@ -1,0 +1,190 @@
+html, body{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+.footer{
+  padding: 1rem;
+}
+.card.blue-grey label:hover,
+[type="radio"]:checked + span {
+  color: #fff;
+}
+.card.blue-grey label {
+  color: #cecccc;
+}
+.card {
+  margin-top: 5rem;
+  
+}
+.card, .collapsible {
+  max-width: 35rem;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+.subtitle {
+	position: absolute;
+	right: 0;
+	font-size: .8rem;
+	top: 1rem;
+	margin-right: 1.4rem;
+	color: #0000008f;
+	width: 4rem;
+	text-align: right;
+}
+#latinRoot {
+  font-size: 3em;
+  line-height: 3rem;
+  padding: 0 0 1rem 0;
+}
+.card .card-content > p {
+  margin: 1rem 0;
+}
+.collapsible li {
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+.collapsible li:hover,
+.collapsible li.active {
+  opacity: 1;
+}
+@media only screen and (min-width: 600px) {
+  #toast-container {
+    top: 10%;
+    width: 30rem;
+    left: 50%;
+    margin-left: -15rem;
+  }
+}
+.card .card-content, .collapsible-body {
+  padding: 16px 36px;
+}
+
+#dropdownOptions li {
+  padding: 0 1em;
+}
+
+#dropdownOptions li div.switch {
+  display: inline-block;
+  width: 14rem;
+  text-align: left;
+}
+
+#dropdownOptions li div.switch label span:first-of-type {
+  display: inline-block;
+  width: 5rem;
+  text-align: right;
+}
+
+#dropdownOptions select.browser-default {
+  width: auto;
+}
+
+[type="radio"]:not(:checked) + span, [type="radio"]:checked + span, #answerContainer label{
+  font-size: 1.5rem !important;
+  font-weight: 300;
+}
+[type="radio"] + span::before, [type="radio"] + span::after {
+  margin: 8px 0 0 0;
+}
+
+#hintCollapsible .collapsible-header {
+  border-bottom: 0 none;
+}
+.card-action .btn {
+  margin-right: 2em;
+}
+.toast.correct {
+  background-color: #74b23f;
+}
+.toast.incorrect {
+  background-color: #ef6c00;
+}
+.btn.next {
+  background-color: #388e3c;
+}
+
+#rootHint .tooltipped:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.material-tooltip {
+  max-width: 15rem;
+}
+.collapsible-header h5 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+.collapsible-header .material-icons {
+  font-size: 1.4rem;
+  margin-right: 0.5rem;
+}
+.dropdown-content li > span {
+  display: flex;
+  align-items: center;
+}
+.dropdown-content li p.range-field {
+  width: 12rem;
+  margin: 0 2rem 0 0;
+}
+.back-button{
+	position: float;
+}
+#reports {
+	min-height: 1000px;
+  display: none;
+}
+
+body #celebrations{
+  display: none;
+}
+body.celbrate{
+  overflow: hidden;
+}
+body.celbrate #celebrations{
+  display: block;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+#celebrations{
+  position:fixed;
+  top:64px;
+  left:0;
+  z-index: 100000;
+  width: 100vw;
+  height: calc(100% - 64px);
+}
+
+
+.secondary-content {
+  float: right;
+  color: #fff;
+  border: 1px solid #61f0e3;
+  min-width: 3rem;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #26a69a;
+  height: 2rem;
+  margin-top: -.2rem;
+  padding-top: .1rem;
+}
+
+.card .card-title {
+  font-weight: 500;
+  margin: .7rem 1rem;
+  display: inline-block;
+}
+
+.collection-item span.title {
+  min-width: 6rem;
+  display: inline-block;
+  font-weight: 700;
+  text-align: right;
+  margin-right: 1rem;
+}
