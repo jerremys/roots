@@ -66,11 +66,18 @@ html, body{
 .card .card-content, .collapsible-body {
   padding: 16px 36px;
 }
-
+.collapsible-body p:first-child {
+  margin-top: 0;
+}
+.collapsible-body p:last-child {
+  margin-bottom: 0;
+}
 #dropdownOptions li {
   padding: 0 1em;
 }
-
+strong {
+  font-weight: 700;
+}
 #dropdownOptions li div.switch {
   display: inline-block;
   width: 14rem;

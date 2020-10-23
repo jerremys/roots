@@ -190,7 +190,7 @@ const latin = {
 		const container = $('#answerContainer');
 		const selected = $("input[name='answerGroup']:checked");
 		latin.question.answers.push(selected.val());
-		latin.question.dateTime = new Date();
+		latin.question.dateTime = (new Date()).getTime();
 
 		if (selected.val() === container.data('answer')) {
 			const $nextRoot = $("#nextRoot");
@@ -293,7 +293,7 @@ const latin = {
 	},
 	loadJson: function () {
 		$.getJSON({
-			url: 'roots.json',
+			url: '/js/roots.json',
 			success: function (resp) {
 				latin.options = resp.options;
 				latin.roots = resp.data;
@@ -453,8 +453,7 @@ latin.db = {
 
 		if (dayStats[key] === undefined) {
 			dayStats[key] = {
-				start: Number.MAX_SAFE_INTEGER,
-				end: 0,
+				duration: 0,
 				questions: 0,
 				answers: 0,
 				times: []
@@ -462,12 +461,7 @@ latin.db = {
 		}
 
 		const day = dayStats[key];
-		if (answer.dateTime < day.start) {
-			day.start = answer.dateTime;
-		}
-		if (answer.dateTime > day.end) {
-			day.end = answer.dateTime;
-		}
+		day.duration += answer.duration;
 		day.times.push(answer.dateTime);
 		day.questions++;
 		day.answers += answer.answers.length;
@@ -557,35 +551,45 @@ latin.db = {
 
 	chartColors: {
 		red: 'rgb(255, 99, 132)',
+		red2: 'rgba(255, 99, 132, 0.5)',
 		orange: 'rgb(255, 159, 64)',
 		yellow: 'rgb(255, 205, 86)',
 		green: 'rgb(75, 192, 192)',
 		blue: 'rgb(54, 162, 235)',
+		blue2: 'rgba(54, 162, 235, 0.5)',
 		purple: 'rgb(153, 102, 255)',
 		grey: 'rgb(201, 203, 207)'
 	},
 
 
-	renderQuestionsAndGuessesChart: function(chartLabels, chartQuestions, averageGuesses){
+	renderQuestionsAndGuessesChart: function(chartLabels, chartAnswers, chartQuestions, averageGuesses){
 
 		var questionsAndGuesses = {
 			labels: chartLabels,
 			datasets: [{
 				type: 'line',
-				label: 'Questions',
-				backgroundColor: '#81c784',
-				borderColor: latin.db.chartColors.red,
-				borderWidth: 1,
-				fill: false,
-				data: chartQuestions
-			}, {
-				type: 'bar',
 				label: 'Avg. Answsers per Question',
-				backgroundColor: '#0288d1',
-				borderColor: latin.db.chartColors.blue,
-				borderWidth: 1,
+				backgroundColor: latin.db.chartColors.green,
 				fill: false,
+				stack: 'Stack 1',
+				pointHoverRadius: 10,
 				data: averageGuesses
+			},{
+				type: 'bar',
+				label: 'Questions',
+				borderWidth: 1,
+				borderColor: latin.db.chartColors.red,
+				backgroundColor: latin.db.chartColors.red2,
+				stack: 'Stack 0',
+				data: chartQuestions
+			},{
+				type: 'bar',
+				label: 'Answers',
+				borderWidth: 1,
+				borderColor: latin.db.chartColors.blue,
+				backgroundColor: latin.db.chartColors.blue2,
+				stack: 'Stack 0',
+				data: chartAnswers
 			}]
 		};
 
@@ -599,9 +603,20 @@ latin.db = {
 				legend: {
 					position: 'top',
 				},
+				hover: {
+					mode: 'index'
+				},
 				title: {
 					display: true,
 					text: 'Questions & Answers'
+				},
+				scales: {
+					xAxes: [{
+						stacked: true,
+					}],
+					yAxes: [{
+						stacked: true
+					}]
 				}
 			}
 		});
@@ -614,18 +629,16 @@ latin.db = {
 			datasets: [{
 				type: 'bar',
 				label: 'Total Time (Minutes)',
-				backgroundColor: '#0288d1',
-				borderColor: latin.db.chartColors.blue,
 				borderWidth: 1,
-				fill: false,
+				borderColor: latin.db.chartColors.red,
+				backgroundColor: latin.db.chartColors.red2,
 				data: timeTotals
 			}, {
 				type: 'line',
 				label: 'Avg. Time per Word',
-				backgroundColor: '#81c784',
-				borderColor: latin.db.chartColors.red,
 				borderWidth: 1,
-				fill: false,
+				borderColor: latin.db.chartColors.blue,
+				backgroundColor: latin.db.chartColors.blue2,
 				data: secondsPerQuestion
 			}]
 		};
@@ -651,17 +664,16 @@ latin.db = {
 
 	showChart: function (dayStats) {
 		let chartLabels = Object.keys(dayStats);
-		let chartQuestions = [], timeTotals = [], secondsPerQuestion = [], averageGuesses = [];
-
+		let chartQuestions = [], chartAnswers = [], timeTotals = [], secondsPerQuestion = [], averageGuesses = [];
 		$.each(dayStats, function (idx, el) {
 			chartQuestions.push(el.questions);
-			//chartAnswers.push(el.answers)
-			secondsPerQuestion.push(((el.end - el.start) / 1000) / el.questions);
-			timeTotals.push(Math.ceil((el.end - el.start) / 60));
-			averageGuesses.push(Math.floor((el.questions / el.answers) * 100));
+			chartAnswers.push(el.answers)
+			secondsPerQuestion.push((el.duration / 1000) / el.questions);
+			timeTotals.push(Math.ceil((el.duration / 1000) / 60));
+			averageGuesses.push(el.answers / el.questions);
 		});
-
-		latin.db.renderQuestionsAndGuessesChart(chartLabels, chartQuestions, averageGuesses);
+		$("#charts").html("");
+		latin.db.renderQuestionsAndGuessesChart(chartLabels, chartAnswers, chartQuestions, averageGuesses);
 		latin.db.renderSecondsPerQuestionChart(chartLabels, timeTotals, secondsPerQuestion);
 
 	}
