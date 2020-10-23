@@ -11,9 +11,8 @@ const canvas = {
   el: document.getElementById("celebrationCanvas"),
   ctx: null,
   resize: function() {
-    const $nav = $("body>nav");
     canvas.el.width = $(document).width();
-    canvas.el.height = $(document).height() - $nav.height();
+    canvas.el.height = $(window).height();
   },
   show: function() {
     $("body").css("overflow", "hidden");

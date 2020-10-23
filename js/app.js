@@ -519,9 +519,6 @@ latin.db = {
 		};
 
 	},
-
-
-
 	showWordStats: function (wordStats) {
 		const guessessAsc = new Map([...wordStats.entries()].sort((a, b) => b[1].guesses - a[1].guesses));
 		const guessessDesc = new Map([...wordStats.entries()].sort((a, b) => a[1].guesses - b[1].guesses));
