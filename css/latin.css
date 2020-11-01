@@ -6,9 +6,8 @@ html, body{
 .footer{
   padding: 1rem;
 }
-.card.blue-grey label:hover,
-[type="radio"]:checked + span {
-  color: #fff;
+.card.blue-grey label:hover, [type="radio"]:checked + span {
+  color: rgba(255, 255, 255, 1) !important;
 }
 .card.blue-grey label {
   color: #cecccc;
@@ -28,6 +27,15 @@ html, body{
       -ms-user-select: none; /* Internet Explorer/Edge */
           user-select: none; /* Non-prefixed version, currently
                                 supported by Chrome, Edge, Opera and Firefox */
+}
+[type="radio"]:disabled + span {
+  color: rgba(0,0,0,0.2);
+}
+[type="radio"]:disabled:not(:checked) + span::before {
+	border-color: rgba(0,0,0,0.2);
+}
+[type="radio"]:disabled:checked + span {
+  font-size: 2rem !important;
 }
 .subtitle {
 	position: absolute;

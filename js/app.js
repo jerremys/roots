@@ -4,7 +4,7 @@
 * jerremy.j.strassner@gmail.com
 *********************************************************/
 const latin = {
-	version: 1,
+	version: 4,
 	storage: window.localStorage,
 	app: {
 		clickSubmit: true,
@@ -25,7 +25,7 @@ const latin = {
 	question: {word: -1, duration: -1, answers: [], dateTime: null},
 	answerQueue: [],
 	answerQueueSize: 20,
-	exclamations: ['Amazing','Awesome','Beautiful','Boss','Brilliant','Capital','Choice','Cracking','Dynamite','Excellent','Exceptional','Exemplary','Exquisite','Extraordinary','Fabulous','Fantastic','First-class','First-rate','Five-star','Grade-A','Great','Magnificent','Marvelous','Meritorious','Nice','Outstanding','Premium','Prime','Remarkable','Righteous','Select','Sensational','Splendid','Stellar','Sterling','Sublime','Super','Superb','Superior','Supreme','Terrific','Tip-Top','Top-Notch'],
+	exclamations: ['Amazing','Awesome','Boss','Brilliant','Capital','Choice','Cracking','Dynamite','Excellent','Exceptional','Exemplary','Exquisite','Fabulous','Fantastic','Great','Marvelous','Nice','Outstanding','Splendid','Stellar','Sterling','Sublime','Super','Superb','Superior','Supreme','Terrific','Tip-Top'],
 	entityMap: {
 		'&': '&amp;',
 		'<': '&lt;',
@@ -78,17 +78,18 @@ const latin = {
 	},
 	buildCommonIndex: function (commonList = []) {
 		if (latin.roots.length > 0) {
+			console.log("Build common indexes");
 			const stripper = function (val, curIdx) {
-				const idx = val[0].indexOf("-", 1);
-				return idx !== -1 ? val[0].substr(0, idx) : null;
+				return val[0];
 			};
 
 			const allRoots = latin.roots.map(stripper);
-
 			$.each(commonList, function (idx, root) {
 				const rootIndex = allRoots.indexOf(root);
 				if (rootIndex !== -1) {
 					latin.commonIndexes.push(rootIndex);
+				}else{
+					console.log("Root not found: " + root);
 				}
 			});
 		}
@@ -209,6 +210,7 @@ const latin = {
 				}, 1600);
 			}else if(latin.question.answers.length === 1){
 				const position = $(evt.currentTarget).offset();
+				position.left += 30;
 				window.explode(position.left, position.top);
 				const exclamationText = latin.exclamations[Math.floor(Math.random() * latin.exclamations.length)];
 				$("#exclamation").text(exclamationText).css({left: position.left, top: position.top}).addClass('show');
@@ -293,7 +295,7 @@ const latin = {
 	},
 	loadJson: function () {
 		$.getJSON({
-			url: '/js/roots.json',
+			url: '/js/roots.json?_=' + (new Date()).getTime(),
 			success: function (resp) {
 				latin.options = resp.options;
 				latin.roots = resp.data;
@@ -303,7 +305,8 @@ const latin = {
 					version: latin.version,
 					options: resp.options,
 					roots: resp.data,
-					common: resp.common
+					common: resp.common,
+					commonIndexes: latin.commonIndexes
 
 				}));
 				latin.setup();
@@ -312,6 +315,7 @@ const latin = {
 	},
 	loadRoots: function () {
 		var rootsString = latin.storage.getItem('latinRoots');
+
 		if (rootsString === null) {
 			latin.loadJson();
 		} else {
@@ -324,7 +328,8 @@ const latin = {
 			}
 			latin.options = data.options;
 			latin.roots = data.roots;
-			latin.buildCommonIndex(data.common);
+			latin.commonIndexes = data.commonIndexes;
+
 			latin.setup();
 		}
 
@@ -367,15 +372,6 @@ const latin = {
 		$('#celebrations').off('click', latin.uncelebrate)
 	}
 };
-$(document).ready(function () {
-	$('#hintCollapsible').collapsible();
-	$('.dropdown-trigger').dropdown({ constrainWidth: false, closeOnClick: false, coverTrigger: false });
-	$('select').formSelect();
-	$('#dropdownOptions a').click(latin.toggleOption);
-	latin.loadRoots();
-	latin.db.setup();
-});
-
 
 latin.db = {
 	db: null,
@@ -672,8 +668,14 @@ latin.db = {
 		$("#charts").html("");
 		latin.db.renderQuestionsAndGuessesChart(chartLabels, chartAnswers, chartQuestions, averageGuesses);
 		latin.db.renderSecondsPerQuestionChart(chartLabels, timeTotals, secondsPerQuestion);
-
 	}
-
 }
 
+$(document).ready(function () {
+	$('#hintCollapsible').collapsible();
+	$('.dropdown-trigger').dropdown({ constrainWidth: false, closeOnClick: false, coverTrigger: false });
+	$('select').formSelect();
+	$('#dropdownOptions a').click(latin.toggleOption);
+	latin.loadRoots();
+	latin.db.setup();
+});
