@@ -46,9 +46,7 @@ const latin = {
 	setup: function () {
 		$( "#reports" ).hide();
 		latin.loadSettings();
-
 		latin.bindSettings($("#dropdownOptions"));
-
 		latin.nextRoot(false);
 
 		$('#nextRoot').click(latin.nextRoot);
@@ -146,7 +144,7 @@ const latin = {
 			$("input[type='radio']", container).change(latin.checkAnswer);
 		} else {
 			$('#checkAnswer').show();
-			$("input[type='radio']", container).off('change', '', latin.checkAnswer);
+			$("input[type='radio']", container).off('change', latin.checkAnswer);
 		}
 	},
 	toggleHint: function () {
@@ -194,6 +192,7 @@ const latin = {
 		latin.question.dateTime = (new Date()).getTime();
 
 		if (selected.val() === container.data('answer')) {
+			$('#checkAnswer').prop("disabled", true);
 			const $nextRoot = $("#nextRoot");
 			$nextRoot.removeClass("disabled");
 			$('#answerContainer input').prop('disabled', true);
@@ -334,8 +333,12 @@ const latin = {
 		}
 
 	},
-	toggleOption: function (el) {
-		const $cb = $('input[type=checkbox]', el.currentTarget);
+	toggleOption: function ($evt) {
+		const $cb = $('input[type=checkbox]', $evt.currentTarget);
+		if(!$cb.length){
+			return;
+		}
+
 		$cb.prop("checked", !!!$cb.prop("checked"));
 
 		var e = jQuery.Event("click");
@@ -675,7 +678,6 @@ $(document).ready(function () {
 	$('#hintCollapsible').collapsible();
 	$('.dropdown-trigger').dropdown({ constrainWidth: false, closeOnClick: false, coverTrigger: false });
 	$('select').formSelect();
-	$('#dropdownOptions a').click(latin.toggleOption);
 	latin.loadRoots();
 	latin.db.setup();
 });
