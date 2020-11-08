@@ -5,6 +5,7 @@ $primary-color: #4CAF50 !default;
 $primary-color-light: #C8E6C9 !default;
 $primary-color-text: #FFFFFF !default;
 $accent-color: #448AFF !default;
+$accent-color-dark: #2962ff !default;
 $primary-text-color: color("blue-grey", "base") !default;
 $secondary-text-color: #757575 !default;
 $divider-color: #BDBDBD !default;
@@ -35,48 +36,65 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
-
-@function is-direction($value) {
-  $is-keyword: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value);
-  $is-angle: type-of($value)=='number'and index('deg''grad''turn''rad', unit($value));
-
-  @return $is-keyword or $is-angle;
+#questions{
+  padding-top: 1.5rem;
 }
-
-@mixin linear-gradient($direction, $color-stops...) {
-  @if is-direction($direction)==false {
-    $color-stops: $direction, $color-stops;
-    $direction: 180deg;
-  }
-
-  background: nth(nth($color-stops, 1), 1);
-  background: linear-gradient($direction, $color-stops);
-}
-
-nav {
-  @include linear-gradient(to bottom, $primary-color-dark, $primary-color);
-  margin-bottom: 20px;
-}
-
-@media only screen and (max-width : 992px) {
-  nav .brand-logo {
-    margin-left: 0;
-  }
-}
-
-nav .brand-logo {
-  width: 20rem;
+.sidenav-trigger {
   margin-left: 1rem;
+  margin-top: -.5rem;
+  background-color: $primary-color;
+  position: fixed;
 }
 
-.footer {
-  padding: 1rem;
+.sidenav-trigger:hover {
+  background-color: $primary-color-dark;
+}
+
+.sidenav li, .sidenav li a{
+	color: #757575;
+}
+.sidenav li{
+  padding: 0
+}
+
+.sidenav li.setting {
+	line-height: 1.4;
+	font-size: 1rem;
+	padding: 1.1rem 1rem;
+	font-weight: 700;
+}
+
+.sidenav li.setting label{
+	font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.sidenav li.setting .range-field{
+  margin: 0;
+}
+
+.sidenav h4{
+  color: $secondary-text-color;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  padding: 0 1rem;
+}
+.brand-logo {
+	display: flex;
+	padding: 1rem;
+	font-size: 1.6rem;
+	line-height: 1.2;
+  color: $primary-text-color;
+  background-color: $divider-color;
+  border-bottom: $secondary-text-color;
+}
+.brand-logo img{
+  height: 50px;
+  width: 50px;
+  margin-right: 5px;
 }
 .dropdownOptions {
   min-width: 30rem;
-}
-.card {
-  color: $primary-color-text;
 }
 .card label:hover,
 [type="radio"]:checked+span {
@@ -87,6 +105,24 @@ nav .brand-logo {
   color: #cecccc;
 }
 
+.card .card-content>p {
+  margin: 1rem 0;
+}
+
+.card .card-content,
+.collapsible-body {
+  padding: 16px 36px;
+}
+
+.card .card-title {
+  font-weight: 500;
+  margin: .7rem 1rem;
+  display: inline-block;
+}
+
+.card {
+  color: $primary-color-text;
+}
 .card,
 .collapsible {
   max-width: 35rem;
@@ -143,10 +179,6 @@ nav .brand-logo {
   text-align: right;
 }
 
-.card .card-content>p {
-  margin: 1rem 0;
-}
-
 .collapsible li {
   opacity: 0.3;
   transition: opacity 0.3s;
@@ -166,10 +198,7 @@ nav .brand-logo {
   }
 }
 
-.card .card-content,
-.collapsible-body {
-  padding: 16px 36px;
-}
+
 
 .collapsible-body p:first-child {
   margin-top: 0;
@@ -244,9 +273,13 @@ strong {
   max-width: 15rem;
 }
 
+.collapsible {
+  color: $secondary-text-color;
+}
+
 .collapsible-header h5 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
 }
 
 .collapsible-header .material-icons {
@@ -333,11 +366,7 @@ body.celbrate #celebrations {
   padding-top: .1rem;
 }
 
-.card .card-title {
-  font-weight: 500;
-  margin: .7rem 1rem;
-  display: inline-block;
-}
+
 
 .collection-item span.title {
   min-width: 6rem;

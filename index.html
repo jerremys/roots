@@ -8,23 +8,37 @@
 	<meta name="description" content="A quiz app to learn latin and greek word roots, suffixes, and prefixes" />
 	<meta name="rating" content="adult" />
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link type="text/css" rel="stylesheet" href="sass/dist/latin.css">
+	<link type="text/css" rel="stylesheet" href="css/latin.min.css">
 	<link type="text/css" rel="stylesheet" href="css/celebrations.min.css">
+
+	<link rel="img/apple-touch-icon-precomposed" sizes="57x57" href="img/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="img/apple-touch-icon-60x60.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="img/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="img/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="img/apple-touch-icon-152x152.png" />
+	<link rel="icon" type="image/png" href="img/favicon-196x196.png" sizes="196x196" />
+	<link rel="icon" type="image/png" href="img/favicon-96x96.png" sizes="96x96" />
+	<link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
+	<link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
+	<link rel="icon" type="image/png" href="img/favicon-128.png" sizes="128x128" />
+	<meta name="application-name" content="&nbsp;" />
+	<meta name="msapplication-TileColor" content="#FFFFFF" />
+	<meta name="msapplication-TileImage" content="img/mstile-144x144.png" />
+	<meta name="msapplication-square70x70logo" content="img/mstile-70x70.png" />
+	<meta name="msapplication-square150x150logo" content="img/mstile-150x150.png" />
+	<meta name="msapplication-wide310x150logo" content="img/mstile-310x150.png" />
+	<meta name="msapplication-square310x310logo" content="img/mstile-310x310.png" />
+
 </head>
 
 <body>
-	<nav>
-		<div class="nav-wrapper">
-			<span class="brand-logo">LaŦiŋ & Grεεk Řooŧs</span>
-			<ul id="nav-mobile" class="right">
-				<li><a class="dropdown-trigger" href="javascript:void(false);" data-target="dropdownOptions"><i
-							class="material-icons">menu</i></a></li>
-			</ul>
-		</div>
-	</nav>
 	<div id="exclamation">Nice!</div>
 	<div id="lets-celebrate" class="zigzag">Lets Celebrate!</div>
 	<div id="questions">
+	<a href="#" data-target="slide-out" class="sidenav-trigger btn-floating"><i class="material-icons">menu</i></a>
 		<div class="container">
 			<div class="row">
 				<div class="card">
@@ -45,42 +59,14 @@
 							<h5><i class="material-icons">help</i>Hint</h5>
 						</div>
 						<div class="collapsible-body">
-							<p><strong>Origin: </strong><span id="rootOrigin"></span></p>
 							<p><strong>Examples: </strong><span id="rootHint"></span></p>
+							<p><strong>Origin: </strong><span id="rootOrigin"></span></p>
 						</div>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	<form id="settings">
-		<ul id="dropdownOptions" class="dropdown-content">
-			<li><span>Settings</span></a>
-			<li class="divider" tabindex="-1"></li>
-			<li><span>
-					<div class="switch"><label><span>Off</span><input type="checkbox" name="clickSubmit"><span
-								class="lever"></span>On</label></div>Auto submit
-					</span></li>
-			<li><span>
-					<div class="switch"><label><span>Off</span><input type="checkbox" name="showHint"><span
-								class="lever"></span>On</label></div>Show hints
-							</span></li>
-			<li><span>
-					<div class="switch"><label><span>Alpabetical</span><input type="checkbox" name="randomOrder"><span
-								class="lever"></span>Random</label></div>Order
-							</span></li>
-			<li><span>
-					<div class="switch"><label><span>Common</span><input type="checkbox" name="allRoots"><span
-								class="lever"></span>All</label></div>Roots
-							</span></li>
-			<li><span>
-					<p class="range-field"><input type="range" name="answers" min="3" max="10" style="margin: 0" /></p>
-					Choices
-				</span></li>
-			<li class="divider" tabindex="-1"></li>
-			<li><a href="javascript:latin.showReports()"><i class="material-icons">insert_chart</i> Reports</li>
-		</ul>
-	</form>
 	<div id="reports">
 		<div class="fixed-action-btn"><a class="btn-floating btn-large waves-effect waves-light back-button"
 				href="javascript:latin.hideReports()"><i class="material-icons back-button">arrow_back</i></a></div>
@@ -92,11 +78,9 @@
 					<ul class="collection">
 						<li class="collection-item"><span class="title">Questions</span><span
 								id="totals-questions">0</span></li>
-						<li class="collection-item"><span class="title">Answers</span><span
-								id="totals-answers">0</span>
+						<li class="collection-item"><span class="title">Answers</span><span id="totals-answers">0</span>
 						</li>
-						<li class="collection-item"><span class="title">Time</span><span
-								id="totals-time">0</span></li>
+						<li class="collection-item"><span class="title">Time</span><span id="totals-time">0</span></li>
 					</ul>
 				</div>
 			</div>
@@ -135,6 +119,34 @@
 		</div>
 		<div id="charts"></div>
 	</div>
+
+
+	<ul id="slide-out" class="sidenav">
+		<li> <span class="brand-logo"><img class="circle" src="img/logo.png">LaŦiŋ & Grεεk<br>Řooŧs</span>
+		</li>
+		<li class="setting">Auto submit
+			<div class="switch"><label><span>Off</span><input type="checkbox" name="clickSubmit"><span
+						class="lever"></span>On</label></div>
+		</li>
+		<li class="setting">Show hints
+			<div class="switch"><label><span>Off</span><input type="checkbox" name="showHint"><span
+						class="lever"></span>On</label></div>
+		</li>
+		<li class="setting">Order
+			<div class="switch"><label><span>Alpabetical</span><input type="checkbox" name="randomOrder"><span
+						class="lever"></span>Random</label></div>
+		</li>
+		<li class="setting">Roots
+			<div class="switch"><label><span>Common</span><input type="checkbox" name="allRoots"><span
+						class="lever"></span>All</label></div>
+		</li>
+		<li class="setting">Choices
+			<p class="range-field"><input type="range" name="answers" min="3" max="10" style="margin: 0" /></p>
+		</li>
+		<li class="divider" tabindex="-1"></li>
+		<li><a href="javascript:latin.showReports()"><i class="material-icons">insert_chart</i> Reports</a></li>
+		<li><a href="mailto:jerremy.strassner@gmail.com"><i class="material-icons">email</i> Jerremy Strassner</a></li>
+	</ul>
 
 	<div id="celebrations">
 		<canvas id="celebrationCanvas"></canvas>
@@ -202,17 +214,11 @@
 				<div class="shadow"></div>
 			</div>
 		</div>
-
-
-	</div>
-	<div class="footer">
-		<strong class="blue-grey-text lighten-1">Contact</strong><br>
-		<a href="mailto:jerremy.strassner@gmail.com">Jerremy Strassner</a>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<script src="js/celebrations.min.js"></script>
-	<script src="js/app.js"></script>
+	<script src="js/app.prod.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.0-beta/chart.min.js"></script>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-30S92M0SZD"></script>
 	<script>

@@ -1,4 +1,5 @@
 'use strict';
+
 /********************************************************
 * Jerremy Strassner
 * jerremy.j.strassner@gmail.com
@@ -36,17 +37,23 @@ const latin = {
 		'`': '&#x60;',
 		'=': '&#x3D;'
 	},
-	  
 	escapeHtml: function(string) {
 		return String(string).replace(/[&<>"'`=\/]/g, function (s) {
 			return entityMap[s];
 		});
 	},
-
+	init: function () {
+		$('#hintCollapsible').collapsible();
+		$('.sidenav').sidenav();
+		$('.dropdown-trigger').dropdown({ constrainWidth: false, closeOnClick: false, coverTrigger: false });
+		$('select').formSelect();
+		latin.loadRoots();
+		latin.db.setup();
+	},
 	setup: function () {
 		$( "#reports" ).hide();
 		latin.loadSettings();
-		latin.bindSettings($("#dropdownOptions"));
+		latin.bindSettings($("#slide-out"));
 		latin.nextRoot(false);
 
 		$('#nextRoot').click(latin.nextRoot);
@@ -346,7 +353,7 @@ const latin = {
 		latin.handleSettingChanged(e);
 	},
 	showReports: function(){
-		$(".dropdown-trigger").dropdown('close');
+		$('.sidenav').sidenav("close");
 
 		$("#questions").fadeOut(200, function(){
 			$("#reports").fadeIn(200);
@@ -546,26 +553,30 @@ latin.db = {
 	},
 
 	chartColors: {
-		red: 'rgb(255, 99, 132)',
-		red2: 'rgba(255, 99, 132, 0.5)',
+		green: '#388E3C',
+		green2: '#4CAF50',
+
+		blue: '#2962ff',
+		blue2: '#448AFF',
+
+		red: '#f44336',
+
 		orange: 'rgb(255, 159, 64)',
 		yellow: 'rgb(255, 205, 86)',
-		green: 'rgb(75, 192, 192)',
-		blue: 'rgb(54, 162, 235)',
-		blue2: 'rgba(54, 162, 235, 0.5)',
+
 		purple: 'rgb(153, 102, 255)',
 		grey: 'rgb(201, 203, 207)'
 	},
 
 
 	renderQuestionsAndGuessesChart: function(chartLabels, chartAnswers, chartQuestions, averageGuesses){
-
+		const colors = latin.db.chartColors;
 		var questionsAndGuesses = {
 			labels: chartLabels,
 			datasets: [{
 				type: 'line',
 				label: 'Avg. Answsers per Question',
-				backgroundColor: latin.db.chartColors.green,
+				backgroundColor: latin.db.chartColors.red,
 				fill: false,
 				stack: 'Stack 1',
 				pointHoverRadius: 10,
@@ -574,13 +585,13 @@ latin.db = {
 				type: 'bar',
 				label: 'Questions',
 				borderWidth: 1,
-				borderColor: latin.db.chartColors.red,
-				backgroundColor: latin.db.chartColors.red2,
+				borderColor: latin.db.chartColors.green,
+				backgroundColor: latin.db.chartColors.green2,
 				stack: 'Stack 0',
 				data: chartQuestions
 			},{
 				type: 'bar',
-				label: 'Answers',
+				label: 'Guesses',
 				borderWidth: 1,
 				borderColor: latin.db.chartColors.blue,
 				backgroundColor: latin.db.chartColors.blue2,
@@ -626,8 +637,8 @@ latin.db = {
 				type: 'bar',
 				label: 'Total Time (Minutes)',
 				borderWidth: 1,
-				borderColor: latin.db.chartColors.red,
-				backgroundColor: latin.db.chartColors.red2,
+				borderColor: latin.db.chartColors.green,
+				backgroundColor: latin.db.chartColors.green2,
 				data: timeTotals
 			}, {
 				type: 'line',
@@ -674,10 +685,4 @@ latin.db = {
 	}
 }
 
-$(document).ready(function () {
-	$('#hintCollapsible').collapsible();
-	$('.dropdown-trigger').dropdown({ constrainWidth: false, closeOnClick: false, coverTrigger: false });
-	$('select').formSelect();
-	latin.loadRoots();
-	latin.db.setup();
-});
+$(document).ready(latin.init);
