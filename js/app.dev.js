@@ -23,7 +23,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var latin = {
-  version: 4,
+  version: 5,
   storage: window.localStorage,
   app: {
     clickSubmit: true,
@@ -49,7 +49,7 @@ var latin = {
   },
   answerQueue: [],
   answerQueueSize: 20,
-  exclamations: ['Amazing', 'Awesome', 'Boss', 'Brilliant', 'Capital', 'Choice', 'Cracking', 'Dynamite', 'Excellent', 'Exceptional', 'Exemplary', 'Exquisite', 'Fabulous', 'Fantastic', 'Great', 'Marvelous', 'Nice', 'Outstanding', 'Splendid', 'Stellar', 'Sterling', 'Sublime', 'Super', 'Superb', 'Superior', 'Supreme', 'Terrific', 'Tip-Top'],
+  exclamations: ['Amazing', 'Awesome', 'Brilliant', 'Capital', 'Cracking', 'Excellent', 'Exceptional', 'Exquisite', 'Fabulous', 'Fantastic', 'Great', 'Marvelous', 'Nice', 'Splendid', 'Stellar', 'Superb', 'Superior', 'Supreme', 'Terrific', 'Tip-Top'],
   entityMap: {
     '&': '&amp;',
     '<': '&lt;',
@@ -252,7 +252,6 @@ var latin = {
       var $nextRoot = $("#nextRoot");
       $nextRoot.removeClass("disabled");
       $('#answerContainer input').prop('disabled', true);
-      var toastDelay = 0;
 
       if (Math.floor(Math.random() * latin.celebrationChance) === 0) {
         var $el = $("#lets-celebrate");
@@ -275,16 +274,14 @@ var latin = {
         setTimeout(function () {
           $("#exclamation").removeClass('show');
         }, 1000);
-        toastDelay = 800;
-      }
-
-      setTimeout(function () {
+      } else {
         M.toast({
           html: 'Correct',
           classes: 'correct',
           displayLength: 1000
         });
-      }, toastDelay);
+      }
+
       latin.finishAnswer();
     } else {
       M.toast({

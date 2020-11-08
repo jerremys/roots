@@ -8117,7 +8117,7 @@ body {
   margin-left: 1rem;
   margin-top: -0.5rem;
   background-color: #4CAF50;
-  position: fixed;
+  position: absolute;
 }
 
 .sidenav-trigger:hover {
@@ -8380,6 +8380,10 @@ strong {
 
 .switch label input[type=checkbox]:checked + .lever::after,
 input[type=range]::-moz-range-thumb {
+  background-color: #448AFF;
+}
+
+.switch label input[type=checkbox]:checked + .lever:after {
   background-color: #448AFF;
 }
 

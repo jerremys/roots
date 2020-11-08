@@ -43,7 +43,7 @@ body {
   margin-left: 1rem;
   margin-top: -.5rem;
   background-color: $primary-color;
-  position: fixed;
+  position: absolute;
 }
 
 .sidenav-trigger:hover {
@@ -305,7 +305,9 @@ strong {
 input[type="range"]::-moz-range-thumb
 {
   background-color: color("blue", "accent-2");
-
+}
+.switch label input[type=checkbox]:checked+.lever:after {
+  background-color: color("blue", "accent-2");
 }
 .switch label input[type="checkbox"]:checked + .lever,
 input[type="range"] + .thumb {

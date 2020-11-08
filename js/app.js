@@ -5,7 +5,7 @@
 * jerremy.j.strassner@gmail.com
 *********************************************************/
 const latin = {
-	version: 4,
+	version: 5,
 	storage: window.localStorage,
 	app: {
 		clickSubmit: true,
@@ -26,7 +26,7 @@ const latin = {
 	question: {word: -1, duration: -1, answers: [], dateTime: null},
 	answerQueue: [],
 	answerQueueSize: 20,
-	exclamations: ['Amazing','Awesome','Boss','Brilliant','Capital','Choice','Cracking','Dynamite','Excellent','Exceptional','Exemplary','Exquisite','Fabulous','Fantastic','Great','Marvelous','Nice','Outstanding','Splendid','Stellar','Sterling','Sublime','Super','Superb','Superior','Supreme','Terrific','Tip-Top'],
+	exclamations: ['Amazing','Awesome','Brilliant','Capital','Cracking','Excellent','Exceptional','Exquisite','Fabulous','Fantastic','Great','Marvelous','Nice','Splendid','Stellar','Superb','Superior','Supreme','Terrific','Tip-Top'],
 	entityMap: {
 		'&': '&amp;',
 		'<': '&lt;',
@@ -203,7 +203,6 @@ const latin = {
 			const $nextRoot = $("#nextRoot");
 			$nextRoot.removeClass("disabled");
 			$('#answerContainer input').prop('disabled', true);
-			let toastDelay = 0;
 
 			if(Math.floor(Math.random() * latin.celebrationChance) === 0){
 				const $el = $("#lets-celebrate");
@@ -214,6 +213,7 @@ const latin = {
 					$nextRoot.removeClass("disabled");
 					latin.celebrate();
 				}, 1600);
+
 			}else if(latin.question.answers.length === 1){
 				const position = $(evt.currentTarget).offset();
 				position.left += 30;
@@ -221,11 +221,9 @@ const latin = {
 				const exclamationText = latin.exclamations[Math.floor(Math.random() * latin.exclamations.length)];
 				$("#exclamation").text(exclamationText).css({left: position.left, top: position.top}).addClass('show');
 				setTimeout(function(){$("#exclamation").removeClass('show');}, 1000);
-				toastDelay = 800;
-			}
-			setTimeout(function(){
+			}else{
 				M.toast({ html: 'Correct', classes: 'correct', displayLength: 1000 });
-			}, toastDelay);
+			}
 
 			latin.finishAnswer();
 		} else {
