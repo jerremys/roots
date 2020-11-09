@@ -23,7 +23,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var latin = {
-  version: 5,
+  version: 6,
   storage: window.localStorage,
   app: {
     clickSubmit: true,
@@ -610,7 +610,7 @@ latin.db = {
             key = _step$value[0],
             value = _step$value[1];
 
-        $container.append("<li class=\"collection-item\"><span class=\"secondary-content\">".concat(value[valueKey], "</span>").concat(key, "</li>"));
+        $container.append("<li class=\"collection-item\"><span class=\"badge\">".concat(value[valueKey], "</span>").concat(key, "</li>"));
 
         if (++count >= latin.db.numStats) {
           break;

@@ -5,7 +5,7 @@
 * jerremy.j.strassner@gmail.com
 *********************************************************/
 const latin = {
-	version: 5,
+	version: 6,
 	storage: window.localStorage,
 	app: {
 		clickSubmit: true,
@@ -541,7 +541,7 @@ latin.db = {
 		let count = 0;
 		$container.html('');
 		for (let [key, value] of wordMap) {
-			$container.append(`<li class="collection-item"><span class="secondary-content">${value[valueKey]}</span>${key}</li>`);
+			$container.append(`<li class="collection-item"><span class="badge">${value[valueKey]}</span>${key}</li>`);
 
 			if (++count >= latin.db.numStats) {
 				break;

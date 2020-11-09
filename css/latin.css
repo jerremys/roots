@@ -8430,17 +8430,14 @@ body.celbrate #celebrations {
   height: 100vh;
 }
 
-.secondary-content {
-  float: right;
-  color: #fff;
-  border: 1px solid #388E3C;
+span.badge {
+  color: #eceff1 !important;
+  border: 1px solid #546e7a;
   min-width: 3rem;
   text-align: center;
-  border-radius: 50%;
-  background-color: #4CAF50;
-  height: 2rem;
+  border-radius: 20%;
+  background-color: #607d8b;
   margin-top: -0.2rem;
-  padding-top: 0.1rem;
 }
 
 .collection-item span.title {
