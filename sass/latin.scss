@@ -39,13 +39,26 @@ body {
 #questions{
   padding-top: 1.5rem;
 }
+#menu-options{
+  z-index: 1001;
+}
+#slide-out{
+  z-index: 1002;
+}
 .sidenav-trigger {
   margin-left: 1rem;
   margin-top: -.5rem;
   background-color: $primary-color;
   position: absolute;
 }
-
+.tap-target h4{
+  color: $primary-color-text
+}
+.tap-target li{
+  font-size: 1.2rem;
+  color: $primary-color-light;
+  line-height: 2;
+}
 .sidenav-trigger:hover {
   background-color: $primary-color-dark;
 }

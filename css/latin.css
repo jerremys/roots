@@ -8113,11 +8113,29 @@ body {
   padding-top: 1.5rem;
 }
 
+#menu-options {
+  z-index: 1001;
+}
+
+#slide-out {
+  z-index: 1002;
+}
+
 .sidenav-trigger {
   margin-left: 1rem;
   margin-top: -0.5rem;
   background-color: #4CAF50;
   position: absolute;
+}
+
+.tap-target h4 {
+  color: #FFFFFF;
+}
+
+.tap-target li {
+  font-size: 1.2rem;
+  color: #C8E6C9;
+  line-height: 2;
 }
 
 .sidenav-trigger:hover {
