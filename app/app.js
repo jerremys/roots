@@ -2,11 +2,12 @@
  * Jerremy Strassner
  * jerremy.j.strassner@gmail.com
  *********************************************************/
+let latin = {};
 
 (function () {
 	'use strict';
 
-	const latin = {
+	latin = {
 		version: 7,
 		storage: window.localStorage,
 		app: {
@@ -69,6 +70,11 @@
 
 			$('#nextRoot').click(latin.nextRoot);
 			$('#checkAnswer').click(latin.checkAnswer);
+
+			$("#rootHint").on('click', '.hint', latin.define);
+		},
+		define: function(){
+			window.open('https://www.merriam-webster.com/dictionary/' + latin.escapeHtml($(this).text()));
 		},
 		loadSettings: function () {
 			var settingsString = latin.storage.getItem('settings');
@@ -193,7 +199,7 @@
 			}, delay);
 		},
 		renderHint: function (hint) {
-			$('#rootHint').html('<span class="tooltipped">' + hint.split(/\s*,\s*/).join('</span>, <span class="tooltipped">') + '</span>');
+			$('#rootHint').html('<span class="hint">' + hint.split(/\s*,\s*/).join('</span>, <span class="hint">') + '</span>');
 		},
 		checkAnswer: function (evt) {
 			const container = $('#answerContainer');

@@ -20,10 +20,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * Jerremy Strassner
  * jerremy.j.strassner@gmail.com
  *********************************************************/
+var latin = {};
+
 (function () {
   'use strict';
 
-  var latin = {
+  latin = {
     version: 7,
     storage: window.localStorage,
     app: {
@@ -85,6 +87,10 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       latin.nextRoot(false);
       $('#nextRoot').click(latin.nextRoot);
       $('#checkAnswer').click(latin.checkAnswer);
+      $("#rootHint").on('click', '.hint', latin.define);
+    },
+    define: function define() {
+      window.open('https://www.merriam-webster.com/dictionary/' + latin.escapeHtml($(this).text()));
     },
     loadSettings: function loadSettings() {
       var settingsString = latin.storage.getItem('settings');
@@ -221,7 +227,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       }, delay);
     },
     renderHint: function renderHint(hint) {
-      $('#rootHint').html('<span class="tooltipped">' + hint.split(/\s*,\s*/).join('</span>, <span class="tooltipped">') + '</span>');
+      $('#rootHint').html('<span class="hint">' + hint.split(/\s*,\s*/).join('</span>, <span class="hint">') + '</span>');
     },
     checkAnswer: function checkAnswer(evt) {
       var container = $('#answerContainer');
