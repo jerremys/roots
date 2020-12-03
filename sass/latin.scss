@@ -95,16 +95,16 @@ body {
 .brand-logo {
 	display: flex;
 	padding: 1rem;
-	font-size: 1.6rem;
+	font-size: 1.4rem;
 	line-height: 1.2;
-  color: $primary-text-color;
-  background-color: $divider-color;
+  color: $primary-color-light;
+  background-color: $accent-color-dark;
   border-bottom: $secondary-text-color;
 }
 .brand-logo img{
   height: 50px;
   width: 50px;
-  margin-right: 5px;
+  margin-right: 1rem;
 }
 .dropdownOptions {
   min-width: 30rem;

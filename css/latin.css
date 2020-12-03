@@ -8176,17 +8176,17 @@ body {
 .brand-logo {
   display: flex;
   padding: 1rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 1.2;
-  color: #607d8b;
-  background-color: #BDBDBD;
+  color: #C8E6C9;
+  background-color: #2962ff;
   border-bottom: #757575;
 }
 
 .brand-logo img {
   height: 50px;
   width: 50px;
-  margin-right: 5px;
+  margin-right: 1rem;
 }
 
 .dropdownOptions {
